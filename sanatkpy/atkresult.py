@@ -6,19 +6,12 @@ from sanatkpy.buff import DefBuff
 
 class AtkResult:
     def __init__(self):
-        self.mnatk = 0              # 谋略伤害，百分比
-        self.atk = 0                # 兵刃伤害，百分比
-        self.zl = 0                 # 治疗，百分比
-        self.fireLastTurns = 0      # 灼烧状态剩余回合
-        self.waterLastTurns = 0     # 水攻状态剩余回合
-        self.noBAtkLastTurns = 0    # 缴械状态剩余回合，无法进行普通攻击
-        self.weakLastTurns = 0      # 虚弱状态剩余回合，无法造成伤害
-        self.noZDLastTurns = 0      # 技穷状态剩余回合，无法发动主动技能
+        self._clear()
 
         self.enemy = [General(), General(), General()]
         self.our = [General(), General(), General()]
 
-    def clear(self):
+    def _clear(self):
         self.mnatk = 0              # 谋略伤害，百分比
         self.atk = 0                # 兵刃伤害，百分比
         self.zl = 0                 # 治疗，百分比
@@ -27,6 +20,9 @@ class AtkResult:
         self.noBAtkLastTurns = 0    # 缴械状态剩余回合，无法进行普通攻击
         self.weakLastTurns = 0      # 虚弱状态剩余回合，无法造成伤害
         self.noZDLastTurns = 0      # 技穷状态剩余回合，无法发动主动技能
+
+    def clear(self):
+        self._clear()
 
         for i in range(3):
             self.enemy[i].clear()
