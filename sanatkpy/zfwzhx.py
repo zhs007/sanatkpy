@@ -22,20 +22,11 @@ def zfWZHX(atkRet: AtkResult, myindex: int, zfindex: int, turnNums: int):
         else:
             myindex.setReady(zfindex, False)
 
-            atkRet.addAttack(myindex, 0, 1.46)
-            if random.random() < 0.5:
-                atkRet.addStatusJX(myindex, 1, 1)
-            if random.random() < 0.5:
-                atkRet.addStatusJQ(myindex, 1, 1)
+            for i in range(1, 3 + 1):
+                atkRet.addAttack(myindex, i, 1.46)
+                if random.random() < 0.5:
+                    atkRet.addStatusJX(myindex, i, 1)
+                if random.random() < 0.5:
+                    atkRet.addStatusJQ(myindex, i, 1)
 
-            atkRet.addAttack(myindex, 1, 1.46)
-            if random.random() < 0.5:
-                atkRet.addStatusJX(myindex, 2, 1)
-            if random.random() < 0.5:
-                atkRet.addStatusJQ(myindex, 2, 1)
-
-            atkRet.addAttack(myindex, 2, 1.46)
-            if random.random() < 0.5:
-                atkRet.addStatusJX(myindex, 3, 1)
-            if random.random() < 0.5:
-                atkRet.addStatusJQ(myindex, 3, 1)            
+            atkRet.addInDef(myindex, myindex, zfindex, 0.36, 2)

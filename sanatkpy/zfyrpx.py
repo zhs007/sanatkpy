@@ -16,6 +16,9 @@ def zfYRPX(atkRet: AtkResult, myindex: int, zfindex: int, turnNums: int):
 
     for curturn in range(1, turnNums+1):
         if curturn == 2 or curturn == 4:
-            atkRet.addAttack(myindex, 0, 1.04)
-            atkRet.addAttack(myindex, 1, 1.04)
-            atkRet.addAttack(myindex, 2, 1.04)
+            for i in range(3):
+                atkRet.addAttack(myindex, i + 1, 1.04)
+                if atkRet.enemy[i].isNoBAtk():
+                    atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)
+                elif myindex == 0 and atkRet.enemy[i].isNoZD():
+                    atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)

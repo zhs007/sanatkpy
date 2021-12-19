@@ -70,3 +70,9 @@ class General:
         if self.HLLastTurns == 0:
             self.HLSrc = srcindex
             self.HLLastTurns = turns
+
+    def isNoBAtk(self):
+        return self.noBAtkLastTurns > 0
+
+    def isNoZD(self):
+        return self.noZDLastTurns > 0        
