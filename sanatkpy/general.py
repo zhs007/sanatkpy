@@ -21,10 +21,14 @@ class General:
         self.atkPer = 0                 # 兵刃伤害百分比，正增加负降低
         self.defPer = 0                 # 统率百分比，正增加负降低
 
-        self.HLSrc = 0                  # 混乱来源
-        self.HLLastTurns = 0            # 混乱剩余回合数
-        self.HLAtk = [0, 0, 0]          # 混乱造成的总伤害
-        self.HLNoBAtkTimes = 0          # 造成敌人缴械状态回合次，混乱的人造成敌人缴械次数
+        # 自己被混乱了
+        self.HLSrc = 0                  # 混乱来源，自己被谁混乱了
+        self.HLLastTurns = 0            # 混乱剩余回合数，自己混乱的剩余回合数
+
+        # 自己混乱了别人
+        self.HLAtk = [0, 0, 0]          # 自己混乱敌人并造成的总伤害，这个伤害是兵刃伤害率，所以要分人统计
+        self.HLNoBAtkTimes = 0          # 自己混乱敌人并造成敌人缴械状态回合次，混乱的人造成敌人缴械次数
+        self.HLDefOutTotal = 0          # 自己混乱敌人，并造成敌人减防
 
         self.NoBAtkTimes = 0            # 造成敌人缴械状态回合次
 
@@ -41,7 +45,7 @@ class General:
             False,
             False,
             False
-        ]        
+        ]
 
     def clear(self):
         self._clear()
@@ -52,13 +56,15 @@ class General:
     def setReady(self, zfindex, ready):
         self.ready[zfindex] = ready
 
-    def addDefBuff(self, srcindex: int, zfindex: int, defper: float, lastturns: int):
-        buf = DefBuff(srcindex, zfindex, defper, lastturns)
+    def addDefBuff(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
+        buf = DefBuff(srcindex, zfindex, defper, lastturns, isHL)
 
         self.defArr.append(buf)
 
         self.defInTotal += buf.defPer
-        self.defIn[srcindex] += buf.defPer
+
+        if not isHL:
+            self.defIn[srcindex] += buf.defPer
 
     def addHL(self, srcindex: int, turns: int):
         if self.HLLastTurns == 0:
