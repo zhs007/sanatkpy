@@ -91,7 +91,7 @@ class AtkResult:
 
         if destindex > 0:
             # 正常，或者被混乱打到敌人
-            destinfo = self.enemy[destindex]
+            destinfo = self.enemy[destindex - 1]
 
             if destinfo.noZDLastTurns == 0:
                 destinfo.noZDLastTurns = turns
@@ -111,7 +111,7 @@ class AtkResult:
 
         if destindex > 0:
             # 正常，或者被混乱打到敌人
-            destinfo = self.enemy[destindex]
+            destinfo = self.enemy[destindex - 1]
 
             destinfo.addDefBuff(myindex, zfindex, defper, turns, False)
         else:
@@ -127,7 +127,7 @@ class AtkResult:
 
         if destindex > 0:
             # 被混乱，加到敌人
-            destinfo = self.enemy[destindex]
+            destinfo = self.enemy[destindex - 1]
 
             destinfo.addDefBuff(myindex, zfindex, defper, turns, False)
         else:

@@ -10,23 +10,23 @@ from sanatkpy.general import General
 # 如果自己为主将，控制概率提升至65%
 
 
-def zfWZHX(atkRet: AtkResult, myindex: int, zfindex: int, turnNums: int):
-    atkRet.clear()
+def zfWZHX(atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
+    # atkRet.clear()
 
     myinfo = atkRet.our[myindex]
 
-    for curturn in range(1, turnNums+1):
-        if not myindex.isReady(zfindex):
-            if random.random() < 0.35:
-                myindex.setReady(zfindex, True)
-        else:
-            myindex.setReady(zfindex, False)
+    # for curturn in range(1, turnNums+1):
+    if not myinfo.isReady(zfindex):
+        if random.random() < 0.35:
+            myinfo.setReady(zfindex, True)
+    else:
+        myinfo.setReady(zfindex, False)
 
-            for i in range(1, 3 + 1):
-                atkRet.addAttack(myindex, i, 1.46)
-                if random.random() < 0.5:
-                    atkRet.addStatusJX(myindex, i, 1)
-                if random.random() < 0.5:
-                    atkRet.addStatusJQ(myindex, i, 1)
+        for i in range(1, 3 + 1):
+            atkRet.addAttack(myindex, i, 1.46)
+            if random.random() < 0.5:
+                atkRet.addStatusJX(myindex, i, 1)
+            if random.random() < 0.5:
+                atkRet.addStatusJQ(myindex, i, 1)
 
-            atkRet.addInDef(myindex, myindex, zfindex, 0.36, 2)
+        atkRet.addInDef(myindex, myindex, zfindex, 0.36, 2)
