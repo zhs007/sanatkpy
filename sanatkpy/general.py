@@ -4,6 +4,10 @@ from sanatkpy.buff import DefBuff
 
 class General:
     def __init__(self):
+        # 静态属性
+        self.zf = [None, None, None]    # 战法
+
+        # 动态属性
         self._clear()
 
     def _clear(self):
@@ -41,20 +45,28 @@ class General:
         self.noBAtkLastTurns = 0        # 缴械状态剩余回合，无法进行普通攻击
         self.weakLastTurns = 0          # 虚弱状态剩余回合，无法造成伤害
         self.noZDLastTurns = 0          # 技穷状态剩余回合，无法发动主动技能
-        self.ready = [                  # 战法准备状态
-            False,
-            False,
-            False
-        ]
+
+        for i in range(len(self.zf)):
+            self.zf[i].clear()
+
+        # self.zf = [None, None, None]    # 战法
+        # self.ready = [                  # 战法准备状态
+        #     False,
+        #     False,
+        #     False
+        # ]
 
     def clear(self):
         self._clear()
 
-    def isReady(self, zfindex):
-        return self.ready[zfindex]
+    def addZF(self, zfindex: int, zf):
+        self.zf[zfindex] = zf
 
-    def setReady(self, zfindex, ready):
-        self.ready[zfindex] = ready
+    # def isReady(self, zfindex):
+    #     return self.ready[zfindex]
+
+    # def setReady(self, zfindex, ready):
+    #     self.ready[zfindex] = ready
 
     def addDefBuff(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
         buf = DefBuff(srcindex, zfindex, defper, lastturns, isHL)
@@ -75,4 +87,4 @@ class General:
         return self.noBAtkLastTurns > 0
 
     def isNoZD(self):
-        return self.noZDLastTurns > 0        
+        return self.noZDLastTurns > 0
