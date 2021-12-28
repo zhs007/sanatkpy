@@ -13,6 +13,8 @@ from sanatkpy.zfbase import ZFBase
 
 class WZHX(ZFBase):
     def __init__(self):
+        super().__init__()
+
         self.setBaseInfo('威震华夏', 'S')
         self.setRandStart(0.35)
         self.setReadyMode(True, 1)
@@ -24,7 +26,7 @@ class WZHX(ZFBase):
         if retReady == 2:
             for i in range(1, 3 + 1):
                 atkRet.addAttack(myindex, i, 1.46)
-                
+
                 if random.random() < 0.5:
                     atkRet.addStatusJX(myindex, i, 1)
                 if random.random() < 0.5:

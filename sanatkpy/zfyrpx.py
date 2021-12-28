@@ -12,6 +12,8 @@ from sanatkpy.zfbase import ZFBase
 
 class YRPX(ZFBase):
     def __init__(self):
+        super().__init__()
+
         self.setBaseInfo('燕人咆哮', 'S')
         self.setRandStart(1.0)
         # self.setReadyMode(True, 1)
