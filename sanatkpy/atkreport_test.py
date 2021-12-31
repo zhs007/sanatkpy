@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+# pylint: disable = invalid-name
+# pylint: disable = line-too-long
+
 import pytest
 from sanatkpy.atkreport import AtkReport
 

@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+# pylint: disable = invalid-name
+# pylint: disable = line-too-long
 
 class DefBuff:
     def __init__(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
@@ -21,6 +23,10 @@ class BaseBuff:
         self.lastTurns = lastturns
         self.isHL = isHL
 
+    def onTurns(self):
+        if self.lastTurns > 0:
+            self.lastTurns -= 1
+
     def isSame(self, buff):
         return self.code == buff.code
 
@@ -28,5 +34,17 @@ class BaseBuff:
         if self.code == buff.code:
             self.onMerge(buff)
 
-    def onMerge(self, buff):
+    def onMerge(self, _buff):
         return
+
+    def canBaseAttack(self, _src):
+        """
+        canBaseAttack - 是否可以普通攻击
+        """
+
+        return True
+
+
+class BuffJQ(BaseBuff):
+    def __init__(self, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool):
+        super().__init__("jq", srcindex, zfindex, destindex, lastturns, isHL)

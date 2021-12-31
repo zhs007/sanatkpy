@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+# pylint: disable = invalid-name
+# pylint: disable = line-too-long
+
 from sanatkpy.buff import DefBuff
 
 

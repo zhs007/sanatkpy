@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+# pylint: disable = invalid-name
+# pylint: disable = line-too-long
 
 class AtkReportLine:
     def __init__(self, txt, meta: dict):
