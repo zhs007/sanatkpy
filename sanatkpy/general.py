@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+"""
+    general - 武将
+"""
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 
@@ -6,7 +9,15 @@ from sanatkpy.buff import DefBuff
 
 
 class General:
+    """
+        General - 武将
+    """
+
     def __init__(self):
+        """
+            构造函数
+        """
+
         # 静态属性
         self.zf = [None, None, None]    # 战法
 
@@ -14,6 +25,10 @@ class General:
         self._clear()
 
     def _clear(self):
+        """
+            _clear - 清理数据
+        """
+
         self.atkOutTotal = 0            # 造成的兵刃总伤害
         self.atkOut = [0, 0, 0]         # 造成的兵刃伤害
         self.atkIn = [0, 0, 0]          # 得到的兵刃伤害
@@ -60,9 +75,17 @@ class General:
         # ]
 
     def clear(self):
+        """
+            clear - 清理数据
+        """
+
         self._clear()
 
     def addZF(self, zfindex: int, zf):
+        """
+            addZF - 增加战法
+        """
+
         self.zf[zfindex] = zf
 
     # def isReady(self, zfindex):
@@ -72,6 +95,10 @@ class General:
     #     self.ready[zfindex] = ready
 
     def addDefBuff(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
+        """
+            addDefBuff - 增加防御Buff
+        """
+
         buf = DefBuff(srcindex, zfindex, defper, lastturns, isHL)
 
         self.defArr.append(buf)
@@ -82,12 +109,24 @@ class General:
             self.defIn[srcindex] += buf.defPer
 
     def addHL(self, srcindex: int, turns: int):
+        """
+            addHL - 增加混乱Buff
+        """
+
         if self.HLLastTurns == 0:
             self.HLSrc = srcindex
             self.HLLastTurns = turns
 
     def isNoBAtk(self):
+        """
+            isNoBAtk - 是否可以普通攻击
+        """
+
         return self.noBAtkLastTurns > 0
 
     def isNoZD(self):
+        """
+            isNoZD - 是否可以释放主动战法
+        """
+
         return self.noZDLastTurns > 0

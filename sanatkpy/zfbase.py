@@ -1,16 +1,25 @@
 # -*- coding:utf-8 -*-
+"""
+    zfbase - 战法基类
+"""
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 
 import random
-from sanatkpy.atkresult import AtkResult
-from sanatkpy.general import General
-
-# 战法
+# from sanatkpy.atkresult import AtkResult
+# from sanatkpy.general import General
 
 
 class ZFBase:
+    """
+        ZFBase - 战法基类
+    """
+
     def __init__(self):
+        """
+            构造函数
+        """
+
         # 静态属性
         self.randStart = 0
         self.isReadyMode = False
@@ -23,21 +32,41 @@ class ZFBase:
         self.curReadyTurns = 0
 
     def clear(self):
+        """
+            clear - 清除状态，清理动态属性
+        """
+
         self.isReady = False
         self.curReadyTurns = 0
 
     def setBaseInfo(self, name: str, typeLevel: str):
+        """
+            setBaseInfo - 设置基本信息，静态属性
+        """
+
         self.name = name
         self.typeLevel = typeLevel
 
     def setRandStart(self, randStart):
+        """
+            setRandStart - 设置触发概率，静态属性
+        """
+
         self.randStart = randStart
 
     def setReadyMode(self, isReadyMode: bool, readyTurns: int):
+        """
+            setReadyMode - 设置是否是需要准备的战法，静态属性
+        """
+
         self.isReadyMode = isReadyMode
         self.readyTurns = readyTurns
 
     def setReady(self, isReady):
+        """
+            setReady - 设置准备状态，动态属性
+        """
+
         self.isReady = isReady
 
         if isReady:
@@ -45,13 +74,18 @@ class ZFBase:
         else:
             self.curReadyTurns = 0
 
-    # onSimReady
-    #   -1  - 表示非准备战法
-    #   0   - 表示未触发
-    #   1   - 表示当前回合触发
-    #   2   - 表示可以释放
-    #   3   - 表示已触发，但还在准备状态中
     def onSimReady(self):
+        """
+            onSimReady - 准备状态
+
+        Returns:
+                -1  - 表示非准备战法
+                0   - 表示未触发
+                1   - 表示当前回合触发
+                2   - 表示可以释放
+                3   - 表示已触发，但还在准备状态中            
+        """
+
         if self.isReadyMode:
             if not self.isReady:
                 if random.random() < self.randStart:

@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+"""
+    sanatkpy - 三国志战略版的python实现
+"""
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 

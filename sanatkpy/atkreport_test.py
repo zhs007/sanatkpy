@@ -1,12 +1,18 @@
 # -*- coding:utf-8 -*-
+"""
+    atkreport_test - 战报的测试
+"""
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 
-import pytest
+# import pytest
 from sanatkpy.atkreport import AtkReport
 
 
 def test_AtkReport():
+    """
+        test_AtkReport - 测试战报
+    """
     report = AtkReport()
 
     report.addPart("准备")

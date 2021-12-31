@@ -1,20 +1,29 @@
 # -*- coding:utf-8 -*-
+"""
+    zfwzhx - 燕人咆哮
+
+    被动，100%
+    第2、4回合，对敌军全体造成兵刃伤害104%，若对方处于缴械状态，降低统率50%，2回合
+    如果自己为主将，对技穷状态目标也降低统率
+"""
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 
-import random
+# import random
 from sanatkpy.atkresult import AtkResult
-from sanatkpy.general import General
+# from sanatkpy.general import General
 from sanatkpy.zfbase import ZFBase
-
-# 燕人咆哮 -
-# 被动，100%
-# 第2、4回合，对敌军全体造成兵刃伤害104%，若对方处于缴械状态，降低统率50%，2回合
-# 如果自己为主将，对技穷状态目标也降低统率
 
 
 class YRPX(ZFBase):
+    """
+        YRPX - 燕人咆哮
+    """
+
     def __init__(self):
+        """
+            构造函数
+        """
         super().__init__()
 
         self.setBaseInfo('燕人咆哮', 'S')
@@ -22,7 +31,10 @@ class YRPX(ZFBase):
         # self.setReadyMode(True, 1)
 
     def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
-        myinfo = atkRet.our[myindex]
+        """
+            onSim - 释放战法
+        """
+        # myinfo = atkRet.our[myindex]
 
         if curturn == 2 or curturn == 4:
             for i in range(3):

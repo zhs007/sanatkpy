@@ -1,9 +1,21 @@
 # -*- coding:utf-8 -*-
+"""
+    buff - Buff
+"""
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 
+
 class DefBuff:
+    """
+        DefBuff - 防御Buff
+    """
+
     def __init__(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
+        """
+            构造函数
+        """
+
         self.dfIndex = zfindex              # 阵法索引
         self.srcIndex = srcindex            # 来源
         self.defPer = defper                # 造成的减防或增防
@@ -12,7 +24,15 @@ class DefBuff:
 
 
 class BaseBuff:
+    """
+        BaseBuff - Buff基类
+    """
+
     def __init__(self, code: str, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool):
+        """
+            构造函数
+        """
+
         # 静态属性
         self.code = code
 
@@ -24,27 +44,47 @@ class BaseBuff:
         self.isHL = isHL
 
     def onTurns(self):
+        """
+            onTurns - 每个回合开始调用
+        """
         if self.lastTurns > 0:
             self.lastTurns -= 1
 
     def isSame(self, buff):
+        """
+            isSame - 是否是同类Buff
+        """
         return self.code == buff.code
 
     def merge(self, buff):
+        """
+            merge - 2个同类状态需要处理
+        """
         if self.code == buff.code:
             self.onMerge(buff)
 
     def onMerge(self, _buff):
+        """
+            onMerge - 具体的合成方式
+        """
         return
 
     def canBaseAttack(self, _src):
         """
-        canBaseAttack - 是否可以普通攻击
+            canBaseAttack - 是否可以普通攻击
         """
 
         return True
 
 
 class BuffJQ(BaseBuff):
+    """
+        BuffJQ - 计穷
+    """
+
     def __init__(self, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool):
+        """
+            构造函数
+        """
+
         super().__init__("jq", srcindex, zfindex, destindex, lastturns, isHL)

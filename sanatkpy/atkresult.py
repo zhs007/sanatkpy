@@ -1,20 +1,35 @@
 # -*- coding:utf-8 -*-
+"""
+    atkresult - 战斗结果
+"""
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 
 import random
 from sanatkpy.general import General
-from sanatkpy.buff import DefBuff
+# from sanatkpy.buff import DefBuff
 
 
 class AtkResult:
+    """
+        AtkResult - 战斗结果
+    """
+
     def __init__(self):
+        """
+            构造函数
+        """
+
         self._clear()
 
         self.enemy = [General(), General(), General()]
         self.our = [General(), General(), General()]
 
     def _clear(self):
+        """
+            _clear - 清理基本属性
+        """
+
         self.mnatk = 0              # 谋略伤害，百分比
         self.atk = 0                # 兵刃伤害，百分比
         self.zl = 0                 # 治疗，百分比
@@ -25,6 +40,10 @@ class AtkResult:
         self.noZDLastTurns = 0      # 技穷状态剩余回合，无法发动主动技能
 
     def clear(self):
+        """
+            clear - 清理属性
+        """
+
         self._clear()
 
         for i in range(3):
@@ -32,6 +51,10 @@ class AtkResult:
             self.our[i].clear()
 
     def genEmenyIndex(self, myindex: int, isHL: bool):
+        """
+            genEmenyIndex - 随机得到敌人
+        """
+
         if isHL:
             arr = [1, 2, 3]
             for i in range(3):
@@ -47,6 +70,10 @@ class AtkResult:
 
     # destindex - [-3, 3]
     def addAttack(self, myindex: int, destindex: int, atk: float):
+        """
+            addAttack - 增加兵刃伤害
+        """
+
         myinfo = self.our[myindex]
 
         if destindex > 0:
@@ -69,8 +96,12 @@ class AtkResult:
             srcinfo.HLAtk[myindex] += atk
 
     # destindex - [-3, 3]
-    def addStatusJX(self, myindex: int, destindex: int, turns: int):
-        myinfo = self.our[myindex]
+    def addStatusJX(self, _myindex: int, destindex: int, turns: int):
+        """
+            addStatusJX - 增加缴械状态
+        """
+
+        # myinfo = self.our[myindex]
 
         if destindex > 0:
             # 正常，或者被混乱打到敌人
@@ -89,8 +120,11 @@ class AtkResult:
                 # self.noBAtkLastTurns += turns
 
     # destindex - [-3, 3]
-    def addStatusJQ(self, myindex: int, destindex: int, turns: int):
-        myinfo = self.our[myindex]
+    def addStatusJQ(self, _myindex: int, destindex: int, turns: int):
+        """
+            addStatusJQ - 增加计穷状态
+        """
+        # myinfo = self.our[myindex]
 
         if destindex > 0:
             # 正常，或者被混乱打到敌人
@@ -110,6 +144,10 @@ class AtkResult:
 
     # destindex - [-3, 3]
     def addEnemyDownDef(self, myindex: int, destindex: int, zfindex: int, defper: float, turns: int):
+        """
+            addEnemyDownDef - 增加减防状态
+        """
+
         myinfo = self.our[myindex]
 
         if destindex > 0:
@@ -126,6 +164,10 @@ class AtkResult:
 
     # destindex - [-3, 3]
     def addInDef(self, myindex: int, destindex: int, zfindex: int, defper: float, turns: int):
+        """
+            addInDef - 增加加防状态
+        """
+
         myinfo = self.our[myindex]
 
         if destindex > 0:
