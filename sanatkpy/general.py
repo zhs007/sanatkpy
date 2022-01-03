@@ -6,6 +6,7 @@
 # pylint: disable = line-too-long
 
 from sanatkpy.buff import DefBuff
+from sanatkpy.status import Status
 
 
 class General:
@@ -64,7 +65,9 @@ class General:
         self.weakLastTurns = 0          # 虚弱状态剩余回合，无法造成伤害
         self.noZDLastTurns = 0          # 技穷状态剩余回合，无法发动主动技能
 
-        for i in range(len(self.zf)):
+        self.status = Status()
+
+        for i, _v in enumerate(self.zf):
             self.zf[i].clear()
 
         # self.zf = [None, None, None]    # 战法

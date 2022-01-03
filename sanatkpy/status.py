@@ -24,10 +24,21 @@ class Status:
             addBuff - 附加一个新的Buff
         """
 
-        for i in range(len(self.lstBuff)):
-            if self.lstBuff[i].isSame(buff):
-                self.lstBuff[i].merge(buff)
+        for _, v in enumerate(self.lstBuff):
+            if v.isSame(buff):
+                v.merge(buff)
 
                 return
 
         self.lstBuff.append(buff)
+
+    def canImmunity(self, dest):
+        """
+            canImmunity - 是否可以免疫这种buff
+        """
+
+        for _, v in enumerate(self.lstBuff):
+            if v.canImmunity(dest):
+                return True
+
+        return False

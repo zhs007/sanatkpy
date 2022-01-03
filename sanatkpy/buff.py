@@ -76,15 +76,9 @@ class BaseBuff:
 
         return True
 
-
-class BuffJQ(BaseBuff):
-    """
-        BuffJQ - 计穷
-    """
-
-    def __init__(self, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool):
+    def canImmunity(self, _dest):
         """
-            构造函数
+            canImmunity - 是否可以免疫这种buff
         """
 
-        super().__init__("jq", srcindex, zfindex, destindex, lastturns, isHL)
+        return False
