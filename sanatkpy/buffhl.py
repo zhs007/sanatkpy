@@ -1,15 +1,15 @@
 # -*- coding:utf-8 -*-
 """
-    buffjq - BuffJQ 技穷
+    buffhl - BuffHL 混乱
 """
 from sanatkpy.buff import BaseBuff
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 
 
-class BuffJQ(BaseBuff):
+class BuffHL(BaseBuff):
     """
-        BuffJQ - 计穷
+        BuffHL - 混乱
     """
 
     def __init__(self, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool):
@@ -17,20 +17,10 @@ class BuffJQ(BaseBuff):
             构造函数
         """
 
-        super().__init__("jq", srcindex, zfindex, destindex, lastturns, isHL)
+        super().__init__("hl", srcindex, zfindex, destindex, lastturns, isHL)
 
     def onMerge(self, _buff):
         """
             onMerge - 抛弃掉新buff
         """
         return
-
-    def canZDSkill(self, src):
-        """
-            canZDSkill - 是否可以释放主动战法
-        """
-
-        if src.status.canImmunity(self):
-            return True
-
-        return True

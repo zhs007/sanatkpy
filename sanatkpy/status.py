@@ -42,3 +42,14 @@ class Status:
                 return True
 
         return False
+
+    def hasBuff(self, code):
+        """
+            hasBuff - 是否有这个Buff
+        """
+
+        for _, v in enumerate(self.lstBuff):
+            if v.code == code:
+                return True
+
+        return False

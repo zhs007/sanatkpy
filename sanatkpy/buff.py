@@ -82,3 +82,10 @@ class BaseBuff:
         """
 
         return False
+
+    def canZDSkill(self, _src):
+        """
+            canZDSkill - 是否可以释放主动战法
+        """
+
+        return True
