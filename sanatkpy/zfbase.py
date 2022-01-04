@@ -6,7 +6,8 @@
 # pylint: disable = line-too-long
 
 import random
-# from sanatkpy.atkresult import AtkResult
+from sanatkpy.atkstats import AtkStats
+from sanatkpy.atkresult import AtkResult
 # from sanatkpy.general import General
 
 
@@ -15,7 +16,7 @@ class ZFBase:
         ZFBase - 战法基类
     """
 
-    def __init__(self):
+    def __init__(self, index: int, zfindex: int):
         """
             构造函数
         """
@@ -26,10 +27,13 @@ class ZFBase:
         self.readyTurns = 0
         self.name = '战法基类'
         self.typeLevel = 'X'    # S/A/B
+        self.index = index
+        self.zfindex = zfindex
 
         # 动态属性
         self.isReady = False
         self.curReadyTurns = 0
+        self.stats = AtkStats(index, zfindex)
 
     def clear(self):
         """
@@ -101,6 +105,11 @@ class ZFBase:
                 return 3
 
         return -1
+
+    def onTurn(self, atkRet: AtkResult, _curturn: int):
+        """
+            onTurn - 处理回合，0表示准备回合，1-8表示具体回合
+        """
 
     # def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
     #     myinfo = atkRet.our[myindex]

@@ -20,6 +20,13 @@ class Status:
 
         self.lstBuff = []
 
+    def clear(self):
+        """
+            clear - clear
+        """
+
+        self.lstBuff = []
+
     def addBuff(self, buff) -> None:
         """
             addBuff - 附加一个新的Buff

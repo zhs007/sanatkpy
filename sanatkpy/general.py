@@ -7,6 +7,7 @@
 
 from sanatkpy.buff import DefBuff
 from sanatkpy.status import Status
+from sanatkpy.atkstats import AtkStats
 
 
 class General:
@@ -24,6 +25,9 @@ class General:
         self.zf = [None, None, None]    # 战法
 
         # 动态属性
+        self.status = Status()
+        self.stats = AtkStats(index, -1)
+
         self._clear()
 
     def _clear(self):
@@ -66,10 +70,10 @@ class General:
         self.weakLastTurns = 0          # 虚弱状态剩余回合，无法造成伤害
         self.noZDLastTurns = 0          # 技穷状态剩余回合，无法发动主动技能
 
-        self.status = Status()
-
         for i, _v in enumerate(self.zf):
             self.zf[i].clear()
+
+        self.status.clear()
 
         # self.zf = [None, None, None]    # 战法
         # self.ready = [                  # 战法准备状态

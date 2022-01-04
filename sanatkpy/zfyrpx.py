@@ -20,21 +20,23 @@ class YRPX(ZFBase):
         YRPX - 燕人咆哮
     """
 
-    def __init__(self):
+    def __init__(self, index: int, zfindex: int):
         """
             构造函数
         """
-        super().__init__()
+        super().__init__(index, zfindex)
 
         self.setBaseInfo('燕人咆哮', 'S')
         self.setRandStart(1.0)
         # self.setReadyMode(True, 1)
 
-    def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
+    def onTurn(self, atkRet: AtkResult, curturn: int):
         """
-            onSim - 释放战法
+            onTurn - 处理回合，0表示准备回合，1-8表示具体回合
         """
-        # myinfo = atkRet.our[myindex]
+
+        myindex = self.index
+        zfindex = self.zfindex
 
         if curturn == 2 or curturn == 4:
             for i in range(3):
@@ -43,6 +45,20 @@ class YRPX(ZFBase):
                     atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)
                 elif myindex == 0 and atkRet.enemy[i].isNoZD():
                     atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)
+
+    # def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
+    #     """
+    #         onSim - 释放战法
+    #     """
+    #     # myinfo = atkRet.our[myindex]
+
+    #     if curturn == 2 or curturn == 4:
+    #         for i in range(3):
+    #             atkRet.addAttack(myindex, i + 1, 1.04)
+    #             if atkRet.enemy[i].isNoBAtk():
+    #                 atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)
+    #             elif myindex == 0 and atkRet.enemy[i].isNoZD():
+    #                 atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)
 
 # def zfYRPX(atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
 #     # atkRet.clear()

@@ -35,8 +35,8 @@ class BuffDef(BaseBuff):
 
     def inSnapshot(self, statusSnapshot) -> bool:
         """
-            isInSnapshot - 是否应该保留进快照里
-                如果是输入，则需要保留
+            inSnapshot - 是否应该保留进快照里
+                如果是受到兵刃攻击，则需要保留
         """
 
         if statusSnapshot.typecode == 'atkin':
