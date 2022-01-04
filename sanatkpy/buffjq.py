@@ -25,12 +25,12 @@ class BuffJQ(BaseBuff):
         """
         return True
 
-    def canZDSkill(self, src):
+    def canZDSkill(self, _src):
         """
             canZDSkill - 是否可以释放主动战法
         """
 
-        if src.status.canImmunity(self):
-            return True
+        # if src.status.canImmunity(self):
+        #     return True
 
-        return True
+        return False

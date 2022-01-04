@@ -6,21 +6,21 @@
 # pylint: disable = line-too-long
 
 
-class DefBuff:
-    """
-        DefBuff - 防御Buff
-    """
+# class DefBuff:
+#     """
+#         DefBuff - 防御Buff
+#     """
 
-    def __init__(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
-        """
-            构造函数
-        """
+#     def __init__(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
+#         """
+#             构造函数
+#         """
 
-        self.dfIndex = zfindex              # 阵法索引
-        self.srcIndex = srcindex            # 来源
-        self.defPer = defper                # 造成的减防或增防
-        self.lastTurns = lastturns          # 剩余回合数
-        self.isHL = isHL                    # 是否是自己人造成的减防或敌人造成的增防
+#         self.dfIndex = zfindex              # 阵法索引
+#         self.srcIndex = srcindex            # 来源
+#         self.defPer = defper                # 造成的减防或增防
+#         self.lastTurns = lastturns          # 剩余回合数
+#         self.isHL = isHL                    # 是否是自己人造成的减防或敌人造成的增防
 
 
 class BaseBuff:
@@ -92,7 +92,7 @@ class BaseBuff:
 
         return True
 
-    def inSnapshot(self, _typecode) -> bool:
+    def inSnapshot(self, _statusSnapshot) -> bool:
         """
             isInSnapshot - 是否应该保留进快照里
         """

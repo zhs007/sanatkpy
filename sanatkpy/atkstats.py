@@ -29,6 +29,10 @@ class AtkStats:
         self.magicIn = [0, 0, 0, 0, 0, 0]       # 得到的谋略伤害
 
     def addAttack(self, src, zfindex: int, dest, atkper: float):
+        """
+            addAttack - 增加兵刃伤害
+        """
+
         srcindex = src.index
         destindex = dest.index
         realzfindex = zfindex

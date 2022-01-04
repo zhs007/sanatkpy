@@ -7,6 +7,7 @@
 
 import random
 from sanatkpy.general import General
+from sanatkpy.atkstats import AtkStats
 # from sanatkpy.buff import DefBuff
 
 
@@ -26,6 +27,8 @@ class AtkResult:
 
         for i in range(6):
             self.general.append(General(i))
+
+        self.teamStats = [AtkStats(-1, -1), AtkStats(-2, -1)]
 
     def _clear(self):
         """
