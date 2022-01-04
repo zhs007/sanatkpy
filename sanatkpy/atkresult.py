@@ -22,8 +22,10 @@ class AtkResult:
 
         self._clear()
 
-        self.enemy = [General(), General(), General()]
-        self.our = [General(), General(), General()]
+        # self.enemy = [General(), General(), General()]
+        # self.our = [General(), General(), General()]
+        self.general = [General(), General(), General(),
+                        General(), General(), General()]
 
     def _clear(self):
         """
@@ -46,35 +48,54 @@ class AtkResult:
 
         self._clear()
 
-        for i in range(3):
-            self.enemy[i].clear()
-            self.our[i].clear()
+        for _, v in enumerate(self.general):
+            v.clear()
+            # self.our[i].clear()
 
-    def genEmenyIndex(self, myindex: int, isHL: bool):
+    def genEmenyIndex(self, myindex: int, nums: int, isHL: bool):
         """
-            genEmenyIndex - 随机得到敌人
+            genEmenyIndex - 随机得到n个攻击目标，[0, 5]
         """
 
+        arr = []
         if isHL:
-            arr = [1, 2, 3]
-            for i in range(3):
+            for i in range(6):
                 if i != myindex:
-                    arr.append(-(i + 1))
-
-            ri = int(random.random() * 5)
-            return arr[ri]
+                    arr.append(i)
         else:
-            ri = int(random.random() * 3)
+            arr = []
+            if myindex < 3:
+                for i in range(3):
+                    arr.append(3 + i)
+            else:
+                for i in range(3):
+                    arr.append(i)
 
-            return ri + 1
+        destarr = []
+        for i in range(nums):
+            ri = int(random.random() * len(arr))
+            destarr.append(arr[ri])
+            del arr[ri]
 
-    # destindex - [-3, 3]
+        return destarr
+
+    def isEnemy(self, myindex, destindex):
+        """
+            isEnemy - 随机得到1个攻击目标，[0, 5]
+        """
+
+        if myindex < 3:
+            return destindex >= 3
+
+        return destindex < 3
+
     def addAttack(self, myindex: int, destindex: int, atk: float):
         """
             addAttack - 增加兵刃伤害
         """
 
-        myinfo = self.our[myindex]
+        myinfo = self.general[myindex]
+        destinfo = self.general[destindex]
 
         if destindex > 0:
             # 正常，或者被混乱打到敌人
