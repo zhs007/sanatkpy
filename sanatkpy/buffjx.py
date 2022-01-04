@@ -19,11 +19,11 @@ class BuffJX(BaseBuff):
 
         super().__init__("jx", srcindex, zfindex, destindex, lastturns, isHL)
 
-    def onMerge(self, _buff):
+    def onMerge(self, _buff) -> bool:
         """
             onMerge - 抛弃掉新buff
         """
-        return
+        return True
 
     def canBaseAttack(self, src):
         """

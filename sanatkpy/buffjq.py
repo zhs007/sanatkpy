@@ -19,11 +19,11 @@ class BuffJQ(BaseBuff):
 
         super().__init__("jq", srcindex, zfindex, destindex, lastturns, isHL)
 
-    def onMerge(self, _buff):
+    def onMerge(self, _buff) -> bool:
         """
             onMerge - 抛弃掉新buff
         """
-        return
+        return True
 
     def canZDSkill(self, src):
         """

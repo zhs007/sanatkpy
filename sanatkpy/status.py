@@ -5,6 +5,7 @@
 
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
+from sanatkpy.statussnapshot import StatusSnapshot
 
 
 class Status:
@@ -26,9 +27,8 @@ class Status:
 
         for _, v in enumerate(self.lstBuff):
             if v.isSame(buff):
-                v.merge(buff)
-
-                return
+                if v.merge(buff):
+                    return
 
         self.lstBuff.append(buff)
 
@@ -64,3 +64,10 @@ class Status:
                 return i
 
         return -1
+
+    def genSnapshot(self, typecode) -> StatusSnapshot:
+        """
+            findBuff - 是否有这个Buff
+        """
+
+        return StatusSnapshot(typecode, self)

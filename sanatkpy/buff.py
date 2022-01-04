@@ -56,18 +56,20 @@ class BaseBuff:
         """
         return self.code == buff.code
 
-    def merge(self, buff):
+    def merge(self, buff) -> bool:
         """
-            merge - 2个同类状态需要处理
+            merge - 2个同类状态需要处理，返回True表示已经处理完了，返回False表示无法merge，只能添加
         """
         if self.code == buff.code:
-            self.onMerge(buff)
+            return self.onMerge(buff)
 
-    def onMerge(self, _buff):
+        return False
+
+    def onMerge(self, _buff) -> bool:
         """
-            onMerge - 具体的合成方式
+            onMerge - 具体的合成方式，返回True表示已经处理完了，返回False表示无法merge，只能添加
         """
-        return
+        return False
 
     def canBaseAttack(self, _src):
         """
@@ -89,3 +91,10 @@ class BaseBuff:
         """
 
         return True
+
+    def inSnapshot(self, _typecode) -> bool:
+        """
+            isInSnapshot - 是否应该保留进快照里
+        """
+
+        return False
