@@ -22,10 +22,10 @@ class AtkResult:
 
         self._clear()
 
-        # self.enemy = [General(), General(), General()]
-        # self.our = [General(), General(), General()]
-        self.general = [General(), General(), General(),
-                        General(), General(), General()]
+        self.general = []
+
+        for i in range(6):
+            self.general.append(General(i))
 
     def _clear(self):
         """

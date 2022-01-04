@@ -14,12 +14,13 @@ class General:
         General - 武将
     """
 
-    def __init__(self):
+    def __init__(self, index: int):
         """
             构造函数
         """
 
         # 静态属性
+        self.index = index
         self.zf = [None, None, None]    # 战法
 
         # 动态属性
@@ -133,3 +134,21 @@ class General:
         """
 
         return self.noZDLastTurns > 0
+
+    def isHL(self):
+        """
+            isHL - 是否混乱中
+        """
+
+        return self.status.hasBuff('hl')
+
+    def getHLIndex(self) -> tuple:
+        """
+            getHLIndex - 获取导致自己混乱的人
+        """
+
+        hlindex = self.status.findBuff('hl')
+        if hlindex >= 0:
+            return self.status.lstBuff[hlindex].srcIndex, self.status.lstBuff[hlindex].zfIndex
+
+        return -1, -1

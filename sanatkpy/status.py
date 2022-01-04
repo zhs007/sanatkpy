@@ -19,7 +19,7 @@ class Status:
 
         self.lstBuff = []
 
-    def addBuff(self, buff):
+    def addBuff(self, buff) -> None:
         """
             addBuff - 附加一个新的Buff
         """
@@ -32,7 +32,7 @@ class Status:
 
         self.lstBuff.append(buff)
 
-    def canImmunity(self, dest):
+    def canImmunity(self, dest) -> bool:
         """
             canImmunity - 是否可以免疫这种buff
         """
@@ -43,7 +43,7 @@ class Status:
 
         return False
 
-    def hasBuff(self, code):
+    def hasBuff(self, code) -> bool:
         """
             hasBuff - 是否有这个Buff
         """
@@ -53,3 +53,14 @@ class Status:
                 return True
 
         return False
+
+    def findBuff(self, code) -> int:
+        """
+            findBuff - 是否有这个Buff
+        """
+
+        for i, v in enumerate(self.lstBuff):
+            if v.code == code:
+                return i
+
+        return -1
