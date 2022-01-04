@@ -37,14 +37,18 @@ class YRPX(ZFBase):
 
         myindex = self.index
         zfindex = self.zfindex
+        myinfo = atkRet.general[myindex]
 
         if curturn == 2 or curturn == 4:
-            for i in range(3):
-                atkRet.addAttack(myindex, i + 1, 1.04)
-                if atkRet.enemy[i].isNoBAtk():
-                    atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)
-                elif myindex == 0 and atkRet.enemy[i].isNoZD():
-                    atkRet.addEnemyDownDef(myindex, i + 1, zfindex, -0.5, 2)
+            arr = atkRet.genEmenyIndex(myindex, 3, myinfo.isHL())
+
+            for _, vi in enumerate(arr):
+                atkRet.addAttack(myindex, vi, 1.04)
+
+                if atkRet.general[vi].canBaseAttack():
+                    atkRet.addDefPer(myindex, zfindex, vi, -0.5, 2)
+                elif myindex == 0 and atkRet.general[vi].canZDSkill():
+                    atkRet.addDefPer(myindex, zfindex, vi, -0.5, 2)
 
     # def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
     #     """

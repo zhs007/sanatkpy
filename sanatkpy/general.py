@@ -7,7 +7,9 @@
 
 # from sanatkpy.buff import DefBuff
 from sanatkpy.buffhl import BuffHL
+from sanatkpy.buffjx import BuffJX
 from sanatkpy.buffdef import BuffDef
+from sanatkpy.buffdefper import BuffDefPer
 from sanatkpy.status import Status
 from sanatkpy.atkstats import AtkStats
 
@@ -24,7 +26,7 @@ class General:
 
         # 静态属性
         self.index = index
-        self.zf = [None, None, None]    # 战法
+        self.zf = [None, None, None, None]    # 战法
 
         # 动态属性
         self.status = Status()
@@ -117,13 +119,30 @@ class General:
         buf = BuffDef(srcindex, zfindex, self.index, lastturns, isHL, defval)
         self.status.addBuff(buf)
 
-    def addHL(self, srcindex: int, zfindex: int, turns: int, isHL: bool):
+    def addBuffDefPer(self, srcindex: int, zfindex: int, defper: float(), lastturns: int, isHL: bool):
+        """
+            addBuffDef - 增加防御Buff
+        """
+
+        buf = BuffDefPer(srcindex, zfindex, self.index,
+                         lastturns, isHL, defper)
+        self.status.addBuff(buf)
+
+    def addHL(self, src, zfindex: int, turns: int):
         """
             addHL - 增加混乱Buff
                 注意，混乱也可以被混乱的自己人添加
         """
 
-        buf = BuffHL(srcindex, zfindex, self.index, turns, isHL)
+        buf = BuffHL(src, zfindex, self.index, turns)
+        self.status.addBuff(buf)
+
+    def addJX(self, src, zfindex: int, turns: int):
+        """
+            addJX - 增加缴械Buff
+        """
+
+        buf = BuffJX(src, zfindex, self.index, turns)
         self.status.addBuff(buf)
 
         # if self.HLLastTurns == 0:
@@ -177,13 +196,29 @@ class General:
 
         return self.status.hasBuff('hl')
 
-    def getHLIndex(self) -> tuple:
+    def getHLInfo(self) -> tuple:
         """
-            getHLIndex - 获取导致自己混乱的人
+            getHLInfo - 获取导致自己混乱的人
         """
 
         hlindex = self.status.findBuff('hl')
         if hlindex >= 0:
-            return self.status.lstBuff[hlindex].srcIndex, self.status.lstBuff[hlindex].zfIndex
+            return self.status.lstBuff[hlindex].src, self.status.lstBuff[hlindex].srcIndex, self.status.lstBuff[hlindex].zfIndex
 
-        return -1, -1
+        return None, -1, -1
+
+    def startAttack(self, zfindex: int, dest, atkper: float):
+        """
+            startAttack - 兵刃攻击
+        """
+
+        self.stats.addAttack(self, zfindex, dest, atkper)
+        self.zf[zfindex].stats.addAttack(self, zfindex, dest, atkper)
+
+    # def startAddDef(self, zfindex: int, dest, defper: float, turns: int):
+    #     """
+    #         startAddDef - 为别人 加/减 统率
+    #     """
+
+    #     self.stats.addAttack(self, zfindex, dest, atkper)
+    #     self.zf[zfindex].stats.addAttack(self, zfindex, dest, atkper)
