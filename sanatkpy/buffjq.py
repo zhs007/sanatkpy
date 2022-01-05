@@ -12,12 +12,12 @@ class BuffJQ(BaseBuff):
         BuffJQ - 计穷
     """
 
-    def __init__(self, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool):
+    def __init__(self, src, zfindex: int, dest, lastturns: int):
         """
             构造函数
         """
 
-        super().__init__("jq", srcindex, zfindex, destindex, lastturns, isHL)
+        super().__init__("jq", src, zfindex, dest, lastturns)
 
     def onMerge(self, _buff) -> bool:
         """

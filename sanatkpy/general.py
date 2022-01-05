@@ -8,8 +8,10 @@
 # from sanatkpy.buff import DefBuff
 from sanatkpy.buffhl import BuffHL
 from sanatkpy.buffjx import BuffJX
+from sanatkpy.buffjq import BuffJQ
 from sanatkpy.buffdef import BuffDef
 from sanatkpy.buffdefper import BuffDefPer
+from sanatkpy.buffatkoutper import BuffAtkOutPer
 from sanatkpy.status import Status
 from sanatkpy.atkstats import AtkStats
 
@@ -111,21 +113,28 @@ class General:
     # def setReady(self, zfindex, ready):
     #     self.ready[zfindex] = ready
 
-    def addBuffDef(self, srcindex: int, zfindex: int, defval: int, lastturns: int, isHL: bool):
+    def addDef(self, src, zfindex: int, defval: int, lastturns: int):
         """
-            addBuffDef - 增加防御Buff
+            addDef - 增加防御Buff
         """
 
-        buf = BuffDef(srcindex, zfindex, self.index, lastturns, isHL, defval)
+        buf = BuffDef(src, zfindex, self, lastturns, defval)
         self.status.addBuff(buf)
 
-    def addBuffDefPer(self, srcindex: int, zfindex: int, defper: float(), lastturns: int, isHL: bool):
+    def addDefPer(self, src, zfindex: int, defper: float, lastturns: int):
         """
-            addBuffDef - 增加防御Buff
+            addDefPer - 增加防御Buff
         """
 
-        buf = BuffDefPer(srcindex, zfindex, self.index,
-                         lastturns, isHL, defper)
+        buf = BuffDefPer(src, zfindex, self, lastturns, defper)
+        self.status.addBuff(buf)
+
+    def addAtkOutPer(self, src, zfindex: int, atkoutper: float, lastturns: int):
+        """
+            addAtkOutPer - 兵刃伤害百分比Buff
+        """
+
+        buf = BuffAtkOutPer(src, zfindex, self, lastturns, atkoutper)
         self.status.addBuff(buf)
 
     def addHL(self, src, zfindex: int, turns: int):
@@ -134,7 +143,7 @@ class General:
                 注意，混乱也可以被混乱的自己人添加
         """
 
-        buf = BuffHL(src, zfindex, self.index, turns)
+        buf = BuffHL(src, zfindex, self, turns)
         self.status.addBuff(buf)
 
     def addJX(self, src, zfindex: int, turns: int):
@@ -142,7 +151,15 @@ class General:
             addJX - 增加缴械Buff
         """
 
-        buf = BuffJX(src, zfindex, self.index, turns)
+        buf = BuffJX(src, zfindex, self, turns)
+        self.status.addBuff(buf)
+
+    def addJQ(self, src, zfindex: int, turns: int):
+        """
+            addJQ - 增加技穷Buff
+        """
+
+        buf = BuffJQ(src, zfindex, self, turns)
         self.status.addBuff(buf)
 
         # if self.HLLastTurns == 0:
@@ -199,13 +216,16 @@ class General:
     def getHLInfo(self) -> tuple:
         """
             getHLInfo - 获取导致自己混乱的人
+
+            Returns:
+                (root, rootzfindex, src, zfindex)
         """
 
         hlindex = self.status.findBuff('hl')
         if hlindex >= 0:
-            return self.status.lstBuff[hlindex].src, self.status.lstBuff[hlindex].srcIndex, self.status.lstBuff[hlindex].zfIndex
+            return self.status.lstBuff[hlindex].hlroot, self.status.lstBuff[hlindex].hlrootzfindex, self.status.lstBuff[hlindex].src, self.status.lstBuff[hlindex].zfIndex
 
-        return None, -1, -1
+        return None, -1, None, -1
 
     def startAttack(self, zfindex: int, dest, atkper: float):
         """

@@ -13,6 +13,7 @@
 from sanatkpy.atkresult import AtkResult
 # from sanatkpy.general import General
 from sanatkpy.zfbase import ZFBase
+from sanatkpy.utils import isMainGeneral
 
 
 class YRPX(ZFBase):
@@ -47,7 +48,7 @@ class YRPX(ZFBase):
 
                 if atkRet.general[vi].canBaseAttack():
                     atkRet.addDefPer(myindex, zfindex, vi, -0.5, 2)
-                elif myindex == 0 and atkRet.general[vi].canZDSkill():
+                elif isMainGeneral(myindex) and atkRet.general[vi].canZDSkill():
                     atkRet.addDefPer(myindex, zfindex, vi, -0.5, 2)
 
     # def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):

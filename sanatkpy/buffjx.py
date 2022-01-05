@@ -12,12 +12,12 @@ class BuffJX(BaseBuff):
         BuffJX - 缴械
     """
 
-    def __init__(self, src, zfindex: int, destindex: int, lastturns: int):
+    def __init__(self, src, zfindex, dest, lastturns: int):
         """
             构造函数
         """
 
-        super().__init__("jx", src.index, zfindex, destindex, lastturns, src.isHL())
+        super().__init__("jx", src, zfindex, dest, lastturns)
 
     def onMerge(self, _buff) -> bool:
         """

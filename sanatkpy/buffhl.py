@@ -12,14 +12,12 @@ class BuffHL(BaseBuff):
         BuffHL - 混乱
     """
 
-    def __init__(self, src, zfindex: int, destindex: int, lastturns: int):
+    def __init__(self, src, zfindex: int, dest, lastturns: int):
         """
             构造函数
         """
 
-        super().__init__("hl", src.index, zfindex, destindex, lastturns, src.isHL())
-
-        self.src = src
+        super().__init__("hl", src, zfindex, dest, lastturns)
 
     def onMerge(self, _buff) -> bool:
         """

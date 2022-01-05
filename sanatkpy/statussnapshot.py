@@ -18,15 +18,16 @@ class StatusSnapshot:
         """
 
         self.typecode = typecode
-        self.atkOff = 0
-        self.defOff = 0
-        self.atkPer = 0
-        self.defPer = 0
-        self.magicOff = 0
-        self.magicPer = 0
-        self.speedOff = 0
-        self.speedPer = 0
-        # self.lstBuff = []
+        self.atkOff = 0     # 武力
+        self.defOff = 0     # 统率
+        self.atkPer = 0     # 武力百分比
+        self.defPer = 0     # 统率百分比
+        self.magicOff = 0   # 谋略
+        self.magicPer = 0   # 谋略百分比
+        self.speedOff = 0   # 速度
+        self.speedPer = 0   # 速度百分比
+        self.atkInPer = 0   # 受到兵刃伤害百分比
+        self.atkOutPer = 0  # 造成兵刃伤害百分比
 
         self._build(status)
 

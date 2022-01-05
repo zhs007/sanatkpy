@@ -4,23 +4,7 @@
 """
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
-
-
-# class DefBuff:
-#     """
-#         DefBuff - 防御Buff
-#     """
-
-#     def __init__(self, srcindex: int, zfindex: int, defper: float, lastturns: int, isHL: bool):
-#         """
-#             构造函数
-#         """
-
-#         self.dfIndex = zfindex              # 阵法索引
-#         self.srcIndex = srcindex            # 来源
-#         self.defPer = defper                # 造成的减防或增防
-#         self.lastTurns = lastturns          # 剩余回合数
-#         self.isHL = isHL                    # 是否是自己人造成的减防或敌人造成的增防
+# from sanatkpy.utils import isSameArmy
 
 
 class BaseBuff:
@@ -28,7 +12,7 @@ class BaseBuff:
         BaseBuff - Buff基类
     """
 
-    def __init__(self, code: str, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool):
+    def __init__(self, code: str, src, zfindex: int, dest, lastturns: int):
         """
             构造函数
         """
@@ -37,11 +21,21 @@ class BaseBuff:
         self.code = code
 
         # 动态属性
-        self.srcIndex = srcindex
+        self.src = src
         self.zfIndex = zfindex
-        self.destIndex = destindex
+        self.dest = dest
         self.lastTurns = lastturns
-        self.isHL = isHL
+
+        self.hlroot = None
+        self.hlrootzfindex = -1
+
+        if src.isHL():
+            r0, rzfi0, _, _ = src.getHLInfo()
+
+            self.hlroot = r0
+            self.hlrootzfindex = rzfi0
+
+        # if isSameArmy(src.index, dest.index):
 
     def onTurns(self):
         """

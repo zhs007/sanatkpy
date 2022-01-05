@@ -4,6 +4,7 @@
 """
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
+from sanatkpy.utils import isSameArmy
 
 
 class AtkStats:
@@ -55,7 +56,7 @@ class AtkStats:
 
     def _addAttack(self, src, zfindex: int, dest, atkper: float):
         """
-            _addAttack - 增加兵刃伤害
+            _addAttack - 增加兵刃伤害，这里不考虑混乱，混乱放addAttack处理
         """
 
         srcindex = src.index
@@ -105,8 +106,19 @@ class AtkStats:
         # realzfindex = zfindex
 
         if src.isHL():
-            hlsrc, _, zfi1 = src.getHLInfo()
-            hlsrc.zf[zfi1].stats.hjlstats._addAttack(
-                src, zfindex, dest, atkper)
+            # 混乱时，如果对敌方的伤害，需要算到自己这边，如果是自己这边的伤害，要算到给你释放混乱的人上
+            # 如果是自己人被混乱了，给你的混乱，应该计算到最初始的人，
+            # 如果那次混乱已经结束，也需要记录下混乱根源
+            # 其实这里可以不考虑给你混乱的人，只考虑根就好
+
+            hlroot, rootzfi, _, _ = src.getHLInfo()
+
+            # 如果混乱root和攻击目标是一边的，则这次攻击算发动者，也就是src
+            # 否则算root的
+            if isSameArmy(hlroot.index, dest.index):
+                self._addAttack(src, zfindex, dest, atkper)
+            else:
+                hlroot.zf[rootzfi].stats.hjlstats._addAttack(
+                    src, zfindex, dest, atkper)
         else:
             self._addAttack(src, zfindex, dest, atkper)

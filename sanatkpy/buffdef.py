@@ -12,12 +12,12 @@ class BuffDef(BaseBuff):
         BuffDef - 统率，加减统率，非百分比
     """
 
-    def __init__(self, srcindex: int, zfindex: int, destindex: int, lastturns: int, isHL: bool, defval: int):
+    def __init__(self, src, zfindex: int, dest, lastturns: int, defval: int):
         """
             构造函数
         """
 
-        super().__init__("def", srcindex, zfindex, destindex, lastturns, isHL)
+        super().__init__("def", src, zfindex, dest, lastturns)
 
         self.defVal = defval
 

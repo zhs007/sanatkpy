@@ -14,6 +14,7 @@ import random
 from sanatkpy.atkresult import AtkResult
 # from sanatkpy.general import General
 from sanatkpy.zfbase import ZFBase
+from sanatkpy.utils import isMainGeneral
 
 
 class WZHX(ZFBase):
@@ -39,17 +40,21 @@ class WZHX(ZFBase):
         myindex = self.index
         zfindex = self.zfindex
 
+        per = 0.5
+        if isMainGeneral(self.index):
+            per = 0.65
+
         retReady = self.onSimReady()
         if retReady == 2:
             for i in range(1, 3 + 1):
                 atkRet.addAttack(myindex, i, 1.46)
 
-                if random.random() < 0.5:
-                    atkRet.addStatusJX(myindex, i, 1)
-                if random.random() < 0.5:
-                    atkRet.addStatusJQ(myindex, i, 1)
+                if random.random() < per:
+                    atkRet.addJX(myindex, i, 1)
+                if random.random() < per:
+                    atkRet.addJQ(myindex, i, 1)
 
-            atkRet.addInDef(myindex, myindex, zfindex, 0.36, 2)
+            atkRet.addAtkOutPer(myindex, myindex, zfindex, 0.36, 2)
 
     # def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, _curturn: int):
     #     """

@@ -1,27 +1,27 @@
 # -*- coding:utf-8 -*-
 """
-    buffdefper - BuffDefPer 防御buff百分比
+    buffatkoutper - BuffAtkOutPer 兵刃伤害buff百分比
 """
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
 from sanatkpy.buff import BaseBuff
 
 
-class BuffDefPer(BaseBuff):
+class BuffAtkOutPer(BaseBuff):
     """
-        BuffDefPer - 统率，加减统率，百分比
+        BuffAtkOutPer - 兵刃伤害buff百分比
     """
 
-    def __init__(self, src, zfindex: int, dest, lastturns: int, defper: float):
+    def __init__(self, src, zfindex: int, dest, lastturns: int, atkoutper: float):
         """
             构造函数
         """
 
-        super().__init__("defper", src, zfindex, dest, lastturns)
+        super().__init__("atkoutper", src, zfindex, dest, lastturns)
 
-        self.defPer = defper
+        self.atkOutPer = atkoutper
 
-    def merge(self, buff):
+    def merge(self, _buff):
         """
             merge - 2个同类状态需要处理，加减统率不能叠加，必须全部都保留
         """
@@ -29,18 +29,18 @@ class BuffDefPer(BaseBuff):
 
     def onMerge(self, _buff) -> bool:
         """
-            onMerge - 叠加，加减统率不能叠加，必须全部都保留
+            onMerge - 叠加，加减兵刃伤害不能叠加，必须全部都保留
         """
         return False
 
     def inSnapshot(self, statusSnapshot) -> bool:
         """
             inSnapshot - 是否应该保留进快照里
-                如果是受到兵刃攻击，则需要保留
+                如果是发出兵刃攻击，则需要保留
         """
 
-        if statusSnapshot.typecode == 'atkin':
-            statusSnapshot.defPer += self.defPer
+        if statusSnapshot.typecode == 'atkout':
+            statusSnapshot.atkOutPer += self.atkOutPer
 
             return True
 

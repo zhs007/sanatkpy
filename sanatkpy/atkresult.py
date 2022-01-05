@@ -135,7 +135,37 @@ class AtkResult:
         myinfo = self.general[myindex]
         destinfo = self.general[destindex]
 
-        destinfo.addBuffDefPer(myinfo, zfindex, defper, turns, myinfo.isHL())
+        destinfo.addDefPer(myinfo, zfindex, defper, turns)
+
+    def addAtkOutPer(self, myindex: int, zfindex: int, destindex: int, atkoutper: float, turns: int):
+        """
+            addAtkOutPer - 加/减 兵刃伤害百分比
+        """
+
+        myinfo = self.general[myindex]
+        destinfo = self.general[destindex]
+
+        destinfo.addAtkOutPer(myinfo, zfindex, atkoutper, turns)
+
+    def addJX(self, myindex: int, zfindex: int, destindex: int, turns: int):
+        """
+            addJX - 缴械
+        """
+
+        myinfo = self.general[myindex]
+        destinfo = self.general[destindex]
+
+        destinfo.addJX(myinfo, zfindex, turns)
+
+    def addJQ(self, myindex: int, zfindex: int, destindex: int, turns: int):
+        """
+            addJQ - 技穷
+        """
+
+        myinfo = self.general[myindex]
+        destinfo = self.general[destindex]
+
+        destinfo.addJQ(myinfo, zfindex, turns)
 
         # myinfo.startAttack(zfindex, destinfo, atkper)
 
