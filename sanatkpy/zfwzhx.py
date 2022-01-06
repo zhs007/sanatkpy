@@ -46,14 +46,12 @@ class WZHX(ZFBase):
         if isMainGeneral(self.index):
             per = 0.65
 
-        retReady = self.onSimReady()
-        if retReady == 2:
-            for i in range(1, 3 + 1):
-                atkRet.addAttack(myindex, i, 1.46)
+        for i in range(1, 3 + 1):
+            atkRet.addAttack(myindex, i, 1.46)
 
-                if random.random() < per:
-                    atkRet.addJX(myindex, i, 1)
-                if random.random() < per:
-                    atkRet.addJQ(myindex, i, 1)
+            if random.random() < per:
+                atkRet.addJX(myindex, i, 1)
+            if random.random() < per:
+                atkRet.addJQ(myindex, i, 1)
 
-            atkRet.addAtkOutPer(myindex, myindex, zfindex, 0.36, 2)
+        atkRet.addAtkOutPer(myindex, myindex, zfindex, 0.36, 2)

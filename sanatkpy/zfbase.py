@@ -140,6 +140,8 @@ class ZFBase:
         onTurn - 处理回合，0表示准备回合，1-8表示具体回合
         """
 
+        
+
         if curturn == 0:
             if self.zftype == ConstValue.ZHZF or self.zftype == ConstValue.BDZF:
                 self.onReady(atkRet)
