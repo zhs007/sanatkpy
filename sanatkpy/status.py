@@ -10,31 +10,31 @@ from sanatkpy.statussnapshot import StatusSnapshot
 
 class Status:
     """
-        Status - 状态，一组Buff的组合
+    Status - 状态，一组Buff的组合
     """
 
     def __init__(self):
         """
-            构造函数
+        构造函数
         """
 
         self.lstBuff = []
 
     def clear(self):
         """
-            clear - clear
+        clear - clear
         """
 
         self.lstBuff = []
 
     def addBuff(self, buff) -> int:
         """
-            addBuff - 附加一个新的Buff
+        addBuff - 附加一个新的Buff
 
-            Returns:
-                1 表示已经附加
-                0 表示冲突
-                -1 表示免疫
+        Returns:
+            1 表示已经附加
+            0 表示冲突
+            -1 表示免疫
         """
 
         if self.canImmunity(buff):
@@ -55,7 +55,7 @@ class Status:
 
     def canImmunity(self, dest) -> bool:
         """
-            canImmunity - 是否可以免疫这种buff
+        canImmunity - 是否可以免疫这种buff
         """
 
         for _, v in enumerate(self.lstBuff):
@@ -66,7 +66,7 @@ class Status:
 
     def hasBuff(self, code) -> bool:
         """
-            hasBuff - 是否有这个Buff
+        hasBuff - 是否有这个Buff
         """
 
         for _, v in enumerate(self.lstBuff):
@@ -77,7 +77,7 @@ class Status:
 
     def findBuff(self, code) -> int:
         """
-            findBuff - 是否有这个Buff
+        findBuff - 是否有这个Buff
         """
 
         for i, v in enumerate(self.lstBuff):
@@ -88,14 +88,14 @@ class Status:
 
     def genSnapshot(self, typecode) -> StatusSnapshot:
         """
-            findBuff - 是否有这个Buff
+        findBuff - 是否有这个Buff
         """
 
         return StatusSnapshot(typecode, self)
 
     def canBaseAttack(self, src):
         """
-            canBaseAttack - 是否可以普通攻击
+        canBaseAttack - 是否可以普通攻击
         """
 
         for _, v in enumerate(self.lstBuff):
@@ -106,7 +106,7 @@ class Status:
 
     def canZDSkill(self, src):
         """
-            canZDSkill - 是否可以释放主动战法
+        canZDSkill - 是否可以释放主动战法
         """
 
         for _, v in enumerate(self.lstBuff):
@@ -114,3 +114,11 @@ class Status:
                 return False
 
         return True
+
+    def onTurn(self, atkRet, curturn: int):
+        """
+        onTurn - 处理回合，0表示准备回合，1-8表示具体回合
+        """
+
+        for _, v in enumerate(self.lstBuff):
+            v.onTurn(atkRet, curturn)

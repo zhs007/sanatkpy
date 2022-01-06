@@ -23,7 +23,7 @@ class BaseBuff:
 
         # 动态属性
         self.src = src
-        self.zfIndex = zfindex
+        self.zfindex = zfindex
         self.dest = dest
         self.lastTurns = lastturns
 
@@ -93,3 +93,10 @@ class BaseBuff:
         """
 
         return False
+
+    def onTurn(self, _atkRet, _curturn: int):
+        """
+        onTurn - 处理回合，0表示准备回合，1-8表示具体回合
+        """
+
+        return

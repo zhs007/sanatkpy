@@ -8,27 +8,28 @@
 import random
 from sanatkpy.atkstats import AtkStats
 from sanatkpy.atkresult import AtkResult
-# from sanatkpy.general import General
+from sanatkpy.const import ConstValue
 
 
 class ZFBase:
     """
-        ZFBase - 战法基类
+    ZFBase - 战法基类
     """
 
-    def __init__(self, index: int, zfindex: int):
+    def __init__(self, index: int, zfindex: int, zftype: str, randStart: float):
         """
-            构造函数
+        构造函数
         """
 
         # 静态属性
-        self.randStart = 0
+        self.randStart = randStart
         self.isReadyMode = False
         self.readyTurns = 0
-        self.name = '战法基类'
-        self.typeLevel = 'X'    # S/A/B
+        self.name = "战法基类"
+        self.typeLevel = "X"  # S/A/B
         self.index = index
         self.zfindex = zfindex
+        self.zftype = zftype
 
         # 动态属性
         self.isReady = False
@@ -37,7 +38,7 @@ class ZFBase:
 
     def clear(self):
         """
-            clear - 清除状态，清理动态属性
+        clear - 清除状态，清理动态属性
         """
 
         self.isReady = False
@@ -45,22 +46,22 @@ class ZFBase:
 
     def setBaseInfo(self, name: str, typeLevel: str):
         """
-            setBaseInfo - 设置基本信息，静态属性
+        setBaseInfo - 设置基本信息，静态属性
         """
 
         self.name = name
         self.typeLevel = typeLevel
 
-    def setRandStart(self, randStart):
-        """
-            setRandStart - 设置触发概率，静态属性
-        """
+    # def setRandStart(self, randStart):
+    #     """
+    #     setRandStart - 设置触发概率，静态属性
+    #     """
 
-        self.randStart = randStart
+    #     self.randStart = randStart
 
     def setReadyMode(self, isReadyMode: bool, readyTurns: int):
         """
-            setReadyMode - 设置是否是需要准备的战法，静态属性
+        setReadyMode - 设置是否是需要准备的战法，静态属性
         """
 
         self.isReadyMode = isReadyMode
@@ -68,7 +69,7 @@ class ZFBase:
 
     def setReady(self, isReady):
         """
-            setReady - 设置准备状态，动态属性
+        setReady - 设置准备状态，动态属性
         """
 
         self.isReady = isReady
@@ -87,7 +88,7 @@ class ZFBase:
                 0   - 表示未触发
                 1   - 表示当前回合触发
                 2   - 表示可以释放
-                3   - 表示已触发，但还在准备状态中            
+                3   - 表示已触发，但还在准备状态中
         """
 
         if self.isReadyMode:
@@ -106,26 +107,44 @@ class ZFBase:
 
         return -1
 
-    def onTurn(self, atkRet: AtkResult, _curturn: int):
+    def onReady(self, _atkRet: AtkResult):
         """
-            onTurn - 处理回合，0表示准备回合，1-8表示具体回合
+        onReady - 准备回合
         """
 
-    # def onSim(self, atkRet: AtkResult, myindex: int, zfindex: int, curturn: int):
-    #     myinfo = atkRet.our[myindex]
+        return
 
-    #     # for curturn in range(1, turnNums+1):
-    #     if not myinfo.isReady(zfindex):
-    #         if random.random() < 0.35:
-    #             myinfo.setReady(zfindex, True)
-    #     else:
-    #         myinfo.setReady(zfindex, False)
+    def onStart(self, _atkRet: AtkResult, _curturn: int):
+        """
+        onStart - 释放战法
+        """
 
-    #         for i in range(1, 3 + 1):
-    #             atkRet.addAttack(myindex, i, 1.46)
-    #             if random.random() < 0.5:
-    #                 atkRet.addStatusJX(myindex, i, 1)
-    #             if random.random() < 0.5:
-    #                 atkRet.addStatusJQ(myindex, i, 1)
+        return
 
-    #         atkRet.addInDef(myindex, myindex, zfindex, 0.36, 2)
+    def procZDSkill(self, atkRet: AtkResult, curturn: int):
+        """
+        onZDSkill - 主动战法
+        """
+
+        ret = self.onSimReady()
+        if ret == -1:
+            if random.random() < self.randStart:
+                self.onStart(atkRet, curturn)
+        elif ret == 2:
+            self.onStart(atkRet, curturn)
+
+        return
+
+    def onTurn(self, atkRet: AtkResult, curturn: int):
+        """
+        onTurn - 处理回合，0表示准备回合，1-8表示具体回合
+        """
+
+        if curturn == 0:
+            if self.zftype == ConstValue.ZHZF or self.zftype == ConstValue.BDZF:
+                self.onReady(atkRet)
+
+            return
+
+        if self.zftype == ConstValue.ZDZF:
+            self.procZDSkill(atkRet, curturn)
