@@ -9,16 +9,17 @@
 
 class BaseBuff:
     """
-        BaseBuff - Buff基类
+    BaseBuff - Buff基类
     """
 
-    def __init__(self, code: str, src, zfindex: int, dest, lastturns: int):
+    def __init__(self, code: str, name: str, src, zfindex: int, dest, lastturns: int):
         """
-            构造函数
+        构造函数
         """
 
         # 静态属性
         self.code = code
+        self.name = name
 
         # 动态属性
         self.src = src
@@ -39,20 +40,20 @@ class BaseBuff:
 
     def onTurns(self):
         """
-            onTurns - 每个回合开始调用
+        onTurns - 每个回合开始调用
         """
         if self.lastTurns > 0:
             self.lastTurns -= 1
 
     def isSame(self, buff):
         """
-            isSame - 是否是同类Buff
+        isSame - 是否是同类Buff
         """
         return self.code == buff.code
 
     def merge(self, buff) -> bool:
         """
-            merge - 2个同类状态需要处理，返回True表示已经处理完了，返回False表示无法merge，只能添加
+        merge - 2个同类状态需要处理，返回True表示已经处理完了，返回False表示无法merge，只能添加
         """
         if self.code == buff.code:
             return self.onMerge(buff)
@@ -61,34 +62,34 @@ class BaseBuff:
 
     def onMerge(self, _buff) -> bool:
         """
-            onMerge - 具体的合成方式，返回True表示已经处理完了，返回False表示无法merge，只能添加
+        onMerge - 具体的合成方式，返回True表示已经处理完了，返回False表示无法merge，只能添加
         """
         return False
 
     def canBaseAttack(self, _src):
         """
-            canBaseAttack - 是否可以普通攻击
+        canBaseAttack - 是否可以普通攻击
         """
 
         return True
 
     def canImmunity(self, _dest):
         """
-            canImmunity - 是否可以免疫这种buff
+        canImmunity - 是否可以免疫这种buff
         """
 
         return False
 
     def canZDSkill(self, _src):
         """
-            canZDSkill - 是否可以释放主动战法
+        canZDSkill - 是否可以释放主动战法
         """
 
         return True
 
     def inSnapshot(self, _statusSnapshot) -> bool:
         """
-            isInSnapshot - 是否应该保留进快照里
+        isInSnapshot - 是否应该保留进快照里
         """
 
         return False
