@@ -8,7 +8,7 @@
 
 def isSameArmy(srcindex: int, destindex: int) -> bool:
     """
-        isSameArmy - 是否是同一边
+    isSameArmy - 是否是同一边
     """
 
     assert srcindex >= 0 and srcindex < 6
@@ -22,9 +22,17 @@ def isSameArmy(srcindex: int, destindex: int) -> bool:
 
 def isMainGeneral(myindex: int) -> bool:
     """
-        isMainGeneral - 是否是主将
+    isMainGeneral - 是否是主将
     """
 
     assert myindex >= 0 and myindex < 6
 
     return myindex == 0 or myindex == 3
+
+
+def toPersentString(val: float) -> str:
+    """
+    toPersentString - 返回百分比字符串
+    """
+
+    return f"{int(val * 100)}%"

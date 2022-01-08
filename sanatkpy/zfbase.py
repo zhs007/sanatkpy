@@ -16,7 +16,15 @@ class ZFBase:
     ZFBase - 战法基类
     """
 
-    def __init__(self, index: int, zfindex: int, zftype: str, randStart: float):
+    def __init__(
+        self,
+        src,
+        zfindex: int,
+        name: str,
+        typeLevel: str,
+        zftype: str,
+        randStart: float,
+    ):
         """
         构造函数
         """
@@ -25,16 +33,17 @@ class ZFBase:
         self.randStart = randStart
         self.isReadyMode = False
         self.readyTurns = 0
-        self.name = "战法基类"
-        self.typeLevel = "X"  # S/A/B
-        self.index = index
+        self.name = name
+        self.typeLevel = typeLevel  # S/A/B
+        self.src = src
         self.zfindex = zfindex
         self.zftype = zftype
+        self.src = src
 
         # 动态属性
         self.isReady = False
         self.curReadyTurns = 0
-        self.stats = AtkStats(index, zfindex)
+        self.stats = AtkStats(src.index, zfindex)
 
     def clear(self):
         """
@@ -44,13 +53,13 @@ class ZFBase:
         self.isReady = False
         self.curReadyTurns = 0
 
-    def setBaseInfo(self, name: str, typeLevel: str):
-        """
-        setBaseInfo - 设置基本信息，静态属性
-        """
+    # def setBaseInfo(self, name: str, typeLevel: str):
+    #     """
+    #     setBaseInfo - 设置基本信息，静态属性
+    #     """
 
-        self.name = name
-        self.typeLevel = typeLevel
+    #     self.name = name
+    #     self.typeLevel = typeLevel
 
     # def setRandStart(self, randStart):
     #     """
@@ -139,8 +148,6 @@ class ZFBase:
         """
         onTurn - 处理回合，0表示准备回合，1-8表示具体回合
         """
-
-        
 
         if curturn == 0:
             if self.zftype == ConstValue.ZHZF or self.zftype == ConstValue.BDZF:

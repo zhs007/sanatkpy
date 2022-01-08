@@ -42,7 +42,7 @@ class BuffYRPXReady(BaseBuff):
             arr = atkRet.genEmenyIndex(myindex, 3, myinfo.isHL())
 
             for _, vi in enumerate(arr):
-                atkRet.addAttack(myindex, vi, 1.04)
+                atkRet.addAttack(myindex, zfindex, vi, 1.04)
 
                 if atkRet.general[vi].canBaseAttack():
                     atkRet.addDefPer(myindex, zfindex, vi, -0.5, 2)
@@ -55,13 +55,13 @@ class YRPX(ZFBase):
     YRPX - 燕人咆哮
     """
 
-    def __init__(self, index: int, zfindex: int):
+    def __init__(self, src, zfindex: int):
         """
         构造函数
         """
-        super().__init__(index, zfindex, ConstValue.BDZF, 1)
+        super().__init__(src, zfindex, "燕人咆哮", ConstValue.ZFLEVEL_S, ConstValue.BDZF, 1)
 
-        self.setBaseInfo("燕人咆哮", "S")
+        # self.setBaseInfo("燕人咆哮", ConstValue.ZFLEVEL_S)
         # self.setRandStart(1.0)
         # self.setReadyMode(True, 1)
 
@@ -70,7 +70,7 @@ class YRPX(ZFBase):
         onReady - 准备回合
         """
 
-        myindex = self.index
+        myindex = self.src.index
         zfindex = self.zfindex
         myinfo = atkRet.general[myindex]
 

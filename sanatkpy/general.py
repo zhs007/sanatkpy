@@ -12,6 +12,7 @@ from sanatkpy.buffdefper import BuffDefPer
 from sanatkpy.buffatkoutper import BuffAtkOutPer
 from sanatkpy.status import Status
 from sanatkpy.atkstats import AtkStats
+from sanatkpy.baseatk import BaseAtk
 
 
 class General:
@@ -19,14 +20,15 @@ class General:
     General - 武将
     """
 
-    def __init__(self, index: int):
+    def __init__(self, index: int, name: str):
         """
         构造函数
         """
 
         # 静态属性
         self.index = index
-        self.zf = [None, None, None, None]  # 战法
+        self.zf = [None, None, None, BaseAtk(index, 3)]  # 战法
+        self.name = name
 
         # 动态属性
         self.status = Status()
@@ -161,9 +163,15 @@ class General:
         # myindex = self.index
         # myinfo = atkRet.general[myindex]
 
-        self.status.onTurn(atkRet, curturn)
-
         if curturn == 0:
+            atkRet.report.addParagraphEx(
+                f"{self.name} 开始准备",
+                "#general# 开始准备",
+                {
+                    "general": self.name,
+                },
+            )
+
             for i, v in enumerate(self.zf):
                 if i == 3:  # 准备阶段，跳过普通攻击
                     return
@@ -172,6 +180,16 @@ class General:
                     v.onTurn(atkRet, curturn)
 
             return
+
+        atkRet.report.addParagraphEx(
+            f"{self.name} 开始行动",
+            "#general# 开始行动",
+            {
+                "general": self.name,
+            },
+        )
+
+        self.status.onTurn(atkRet, curturn)
 
         for i, v in enumerate(self.zf):
             if v is not None:

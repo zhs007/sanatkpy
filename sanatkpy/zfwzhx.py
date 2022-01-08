@@ -24,13 +24,15 @@ class WZHX(ZFBase):
     WZHX - 威震华夏
     """
 
-    def __init__(self, index: int, zfindex: int):
+    def __init__(self, src, zfindex: int):
         """
         构造函数
         """
-        super().__init__(index, zfindex, ConstValue.ZDZF, 0.35)
+        super().__init__(
+            src, zfindex, "威震华夏", ConstValue.ZFLEVEL_S, ConstValue.ZDZF, 0.35
+        )
 
-        self.setBaseInfo("威震华夏", "S")
+        # self.setBaseInfo("威震华夏", ConstValue.ZFLEVEL_S)
         # self.setRandStart(0.35)
         self.setReadyMode(True, 1)
 
@@ -39,19 +41,22 @@ class WZHX(ZFBase):
         onStart - 释放战法
         """
 
-        myindex = self.index
+        myindex = self.src.index
         zfindex = self.zfindex
+        myinfo = self.src
 
         per = 0.5
-        if isMainGeneral(self.index):
+        if isMainGeneral(self.src.index):
             per = 0.65
 
-        for i in range(1, 3 + 1):
-            atkRet.addAttack(myindex, i, 1.46)
+        arr = atkRet.genEmenyIndex(myindex, 3, myinfo.isHL())
+
+        for _, vi in enumerate(arr):
+            atkRet.addAttack(myindex, zfindex, vi, 1.46)
 
             if random.random() < per:
-                atkRet.addJX(myindex, i, 1)
+                atkRet.addJX(myindex, zfindex, vi, 1)
             if random.random() < per:
-                atkRet.addJQ(myindex, i, 1)
+                atkRet.addJQ(myindex, zfindex, vi, 1)
 
-        atkRet.addAtkOutPer(myindex, myindex, zfindex, 0.36, 2)
+        atkRet.addAtkOutPer(myindex, zfindex, myindex, 0.36, 2)

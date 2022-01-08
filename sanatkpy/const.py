@@ -42,3 +42,8 @@ ConstValue.TJZF = "tjzf"  # 突击战法
 ConstValue.ZHZF = "zhzf"  # 指挥战法
 ConstValue.BDZF = "bdzf"  # 被动战法
 ConstValue.BASEATK = "baseatk"  # 普通攻击
+
+ConstValue.ZFLEVEL_S = "A"  # S
+ConstValue.ZFLEVEL_A = "A"  # A
+ConstValue.ZFLEVEL_B = "B"  # B
+ConstValue.ZFLEVEL_N = "N"  # BaseAtk
