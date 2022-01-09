@@ -11,9 +11,6 @@
 # pylint: disable = line-too-long
 
 import random
-from sanatkpy.atkresult import AtkResult
-
-# from sanatkpy.general import General
 from sanatkpy.zfbase import ZFBase
 from sanatkpy.utils import isMainGeneral
 from sanatkpy.const import ConstValue
@@ -32,11 +29,9 @@ class WZHX(ZFBase):
             src, zfindex, "威震华夏", ConstValue.ZFLEVEL_S, ConstValue.ZDZF, 0.35
         )
 
-        # self.setBaseInfo("威震华夏", ConstValue.ZFLEVEL_S)
-        # self.setRandStart(0.35)
         self.setReadyMode(True, 1)
 
-    def onStart(self, atkRet: AtkResult, _curturn: int):
+    def onStart(self, atkRet, _curturn: int):
         """
         onStart - 释放战法
         """

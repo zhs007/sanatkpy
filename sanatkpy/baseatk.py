@@ -6,11 +6,7 @@
 """
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
-
-import random
-from sanatkpy.atkresult import AtkResult
 from sanatkpy.zfbase import ZFBase
-from sanatkpy.utils import isMainGeneral
 from sanatkpy.const import ConstValue
 
 
@@ -31,7 +27,7 @@ class BaseAtk(ZFBase):
         # self.setRandStart(0.35)
         # self.setReadyMode(True, 1)
 
-    def onStart(self, atkRet: AtkResult, _curturn: int):
+    def onStart(self, atkRet, _curturn: int):
         """
         onStart - 释放战法
         """

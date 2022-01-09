@@ -8,9 +8,6 @@
 """
 # pylint: disable = invalid-name
 # pylint: disable = line-too-long
-
-# import random
-from sanatkpy.atkresult import AtkResult
 from sanatkpy.zfbase import ZFBase
 from sanatkpy.utils import isMainGeneral
 from sanatkpy.buff import BaseBuff
@@ -29,7 +26,7 @@ class BuffYRPXReady(BaseBuff):
 
         super().__init__("yrpxready", "燕人咆哮 - 准备", src, zfindex, dest, -1)
 
-    def onTurn(self, atkRet: AtkResult, curturn: int):
+    def onTurn(self, atkRet, curturn: int):
         """
         onTurn - 处理回合，0表示准备回合，1-8表示具体回合
         """
@@ -61,11 +58,7 @@ class YRPX(ZFBase):
         """
         super().__init__(src, zfindex, "燕人咆哮", ConstValue.ZFLEVEL_S, ConstValue.BDZF, 1)
 
-        # self.setBaseInfo("燕人咆哮", ConstValue.ZFLEVEL_S)
-        # self.setRandStart(1.0)
-        # self.setReadyMode(True, 1)
-
-    def onReady(self, atkRet: AtkResult):
+    def onReady(self, atkRet):
         """
         onReady - 准备回合
         """

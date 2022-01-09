@@ -27,7 +27,7 @@ class General:
 
         # 静态属性
         self.index = index
-        self.zf = [None, None, None, BaseAtk(index, 3)]  # 战法
+        self.zf = [None, None, None, BaseAtk(self, 3)]  # 战法
         self.name = name
 
         # 动态属性
@@ -188,6 +188,13 @@ class General:
                 "general": self.name,
             },
         )
+
+        for i, v in enumerate(self.zf):
+            if i == 3:  # 回合开始阶段，跳过普通攻击
+                break
+
+            if v is not None:
+                v.onStartTurn(atkRet, curturn)
 
         self.status.onTurn(atkRet, curturn)
 
